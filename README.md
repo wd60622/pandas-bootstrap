@@ -33,7 +33,6 @@ def mean_of_columns(df):
 
 sample_kwargs = dict(random_state=42)
 df_bootstrap = df.boot.get_samples(bfunc=mean_of_columns, B=5, sample_kwargs=sample_kwargs)
-df_bootstrap
 ```
 
 which results in:
