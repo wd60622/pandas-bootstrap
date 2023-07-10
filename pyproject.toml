@@ -1,10 +1,13 @@
 [tool.poetry]
 name = "pandas-bootstrap"
 version = "0.1.0"
-description = ""
-authors = ["Will Dean <william.dean@free-now.com>"]
+description = "Bootstrapping with Pandas made easy"
+authors = ["Will Dean <wd60622@gmail.com>"]
 readme = "README.md"
-packages = [{include = "pandas_bootstrap"}]
+packages = [
+    {include = "bootstrap"}, 
+    {include = "bootstrap/py.typed"}
+]
 
 [tool.poetry.dependencies]
 python = ">=3.8,<4.0"
