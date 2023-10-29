@@ -20,6 +20,10 @@ The module is very easy to use.
 2. define statistic function: `def some_func(df: pd.DataFrame | pd.Series):`
 3. get bootstrapped samples: `df.boot.get_samples(bfunc=some_func, B=100)`
 
+The return type of `get_samples` is determined by the return type of the `bfunc` function. See [here](./examples/return-type.md) for more details.
+
+## Quickstart
+
 Below is a simple example of bootstrapping the mean of two columns.
 
 ```python

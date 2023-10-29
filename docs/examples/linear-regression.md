@@ -1,3 +1,6 @@
+---
+comments: true
+---
 # Linear Regression Confidence Intervals
 
 ```python 

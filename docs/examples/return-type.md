@@ -1,3 +1,6 @@
+---
+comments: true
+---
 # Return Type
 
 The return type of `get_samples` is determined by the return type of the `bfunc` function.
