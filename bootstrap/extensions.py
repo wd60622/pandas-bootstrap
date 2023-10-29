@@ -11,17 +11,19 @@ class AccessorMixin:
     def get_samples(
         self, bfunc: BFUNC, B: int = 100, sample_kwargs=None, **kwargs
     ) -> pd.DataFrame:
-        return bootstrap(self._obj, bfunc=bfunc, B=B, sample_kwargs=sample_kwargs, **kwargs)
+        return bootstrap(
+            self._obj, bfunc=bfunc, B=B, sample_kwargs=sample_kwargs, **kwargs
+        )
 
 
 @pd.api.extensions.register_dataframe_accessor("boot")
 class DataFrameBootstrapAccessor(AccessorMixin):
     """Bootstrap accessor for pandas DataFrames.
 
-    Example: 
+    Example:
         Bootstrap the mean of each column in a DataFrame.
 
-        ```python 
+        ```python
         import pandas as pd
         import bootstrap
 
@@ -35,7 +37,7 @@ class DataFrameBootstrapAccessor(AccessorMixin):
 
         df_bootstrap: pd.DataFrame = df.boot.get_samples(bfunc=mean_of_columns, B=100)
         ```
-    
+
     """
 
 
@@ -43,7 +45,7 @@ class DataFrameBootstrapAccessor(AccessorMixin):
 class SeriesBootstrapAccessor(AccessorMixin):
     """Bootstrap accessor for pandas Series.
 
-    Example: 
+    Example:
         Bootstrap the mean of a Series.
 
         ```python
@@ -57,5 +59,5 @@ class SeriesBootstrapAccessor(AccessorMixin):
 
         ser_bootstrap: pd.Series = ser.boot.get_samples(bfunc=mean_of_series, B=100)
         ```
-    
+
     """

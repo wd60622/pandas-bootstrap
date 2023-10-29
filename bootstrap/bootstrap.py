@@ -31,7 +31,7 @@ def get_return_type(bfunc: BFUNC) -> type:
 def infer_return_type(df: BFUNC_INPUT, bfunc: BFUNC, **kwargs) -> Tuple[BFUNC, type]:
     """Infer the return type of a bootstrap function.
 
-    Args: 
+    Args:
         df: The DataFrame to bootstrap.
         bfunc: The bootstrap function.
         **kwargs: Keyword arguments to pass to the bootstrap function.
@@ -41,7 +41,7 @@ def infer_return_type(df: BFUNC_INPUT, bfunc: BFUNC, **kwargs) -> Tuple[BFUNC, t
 
     Raises:
         UnsupportedReturnType: If the bootstrap function returns an unsupported type.
-    
+
     """
     df_result = bfunc(df, **kwargs)
 
@@ -70,6 +70,7 @@ def infer_return_type(df: BFUNC_INPUT, bfunc: BFUNC, **kwargs) -> Tuple[BFUNC, t
 
 class DataFrameFunction:
     """Process a bootstrap function that returns a DataFrame."""
+
     append_axis: int = 0
 
     @staticmethod
@@ -79,11 +80,12 @@ class DataFrameFunction:
 
     @staticmethod
     def post_process(df: pd.DataFrame) -> pd.DataFrame:
-        return df.set_index("sample", append=True)
+        return df.set_index("sample", append=True).sort_index()
 
 
 class SeriesFunction:
     """Process a bootstrap function that returns a Series."""
+
     append_axis: int = 1
 
     @staticmethod
@@ -119,7 +121,7 @@ def bootstrap(
 ) -> Union[pd.DataFrame, pd.Series]:
     """Core bootstrap function.
 
-    Args: 
+    Args:
         bfunc_input: Input to bootstrap function.
         bfunc: Bootstrap function.
         B: Number of bootstrap samples.
@@ -132,16 +134,20 @@ def bootstrap(
     Raises:
         ValueError: If sample_kwargs contains 'replace' or 'frac' keys.
         UnsupportedReturnType: If the bootstrap function returns an unsupported type.
-    
+
     """
     if sample_kwargs is None:
         sample_kwargs = {}
 
     if "replace" in sample_kwargs or "frac" in sample_kwargs:
         raise ValueError("sample_kwargs cannot contain 'replace' or 'frac' keys.")
-    
-    if "random_state" in sample_kwargs and isinstance(sample_kwargs["random_state"], int):
-        sample_kwargs["random_state"] = np.random.default_rng(sample_kwargs["random_state"])
+
+    if "random_state" in sample_kwargs and isinstance(
+        sample_kwargs["random_state"], int
+    ):
+        sample_kwargs["random_state"] = np.random.default_rng(
+            sample_kwargs["random_state"]
+        )
 
     sample_kwargs["replace"] = True
     sample_kwargs["frac"] = 1
