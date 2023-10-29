@@ -4,11 +4,13 @@ import numpy as np
 import pandas as pd
 
 
-rng = np.random.default_rng(42)
+@pytest.fixture 
+def rng(): 
+    return np.random.default_rng(42)
 
 
 @pytest.fixture
-def df() -> pd.DataFrame:
+def df(rng) -> pd.DataFrame:
     n_samples = 100
     data = rng.normal(size=(n_samples, 2))
     frame = pd.DataFrame(data, columns=["x", "y"])
@@ -18,7 +20,7 @@ def df() -> pd.DataFrame:
 
 
 @pytest.fixture
-def series() -> pd.Series:
+def series(rng) -> pd.Series:
     n_samples = 100
     data = rng.normal(size=n_samples)
     series = pd.Series(data, name="x")
