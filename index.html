@@ -381,6 +381,13 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#quickstart" class="md-nav__link">
+    Quickstart
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -641,6 +648,13 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#quickstart" class="md-nav__link">
+    Quickstart
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -671,6 +685,8 @@
 <li>define statistic function: <code>def some_func(df: pd.DataFrame | pd.Series):</code></li>
 <li>get bootstrapped samples: <code>df.boot.get_samples(bfunc=some_func, B=100)</code></li>
 </ol>
+<p>The return type of <code>get_samples</code> is determined by the return type of the <code>bfunc</code> function. See <a href="examples/return-type/">here</a> for more details.</p>
+<h2 id="quickstart">Quickstart</h2>
 <p>Below is a simple example of bootstrapping the mean of two columns.</p>
 <div class="language-python highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
 </span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>
