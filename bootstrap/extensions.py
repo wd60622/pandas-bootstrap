@@ -1,18 +1,60 @@
-"""Extensions for pandas DataFrames and Series. Access with the `boot` attribute of a DataFrame or Series."""
+"""Extensions for pandas DataFrames and Series. Access with the `boot` attribute of a DataFrame or Series.
+
+Available after importing the package:
+
+```python
+import bootstrap
+
+df = pd.DataFrame(...)
+df.boot.get_samples(...)
+
+ser = pd.Series(...)
+ser.boot.get_samples(...)
+```
+
+"""
+from typing import Any, Dict, Optional, Union
+
+from joblib import Parallel
+
 import pandas as pd
 
 from bootstrap.bootstrap import bootstrap, BFUNC
 
 
 class AccessorMixin:
+    """Common functionality for DataFrame and Series accessors."""
     def __init__(self, obj):
         self._obj = obj
 
     def get_samples(
-        self, bfunc: BFUNC, B: int = 100, sample_kwargs=None, **kwargs
-    ) -> pd.DataFrame:
+        self,
+        bfunc: BFUNC,
+        B: int = 100,
+        sample_kwargs: Dict[str, Any] = None,
+        parallel: Optional[Parallel] = None,
+        **kwargs
+    ) -> Union[pd.Series, pd.DataFrame]:
+        """Get bootstrap samples of the object.
+
+        Args:
+            bfunc: Bootstrap function.
+            B: Number of bootstrap samples.
+            sample_kwargs: Keyword arguments to pass to the sample method of the object.
+            parallel: Joblib Parallel object.
+            kwargs: Keyword arguments to pass to the bootstrap function.
+
+        Returns:
+            Bootstrap samples in a Series or DataFrame. Depends on the return type of the bootstrap function.
+
+        """
         return bootstrap(
-            self._obj, bfunc=bfunc, B=B, sample_kwargs=sample_kwargs, **kwargs
+            self._obj,
+            bfunc=bfunc,
+            B=B,
+            sample_kwargs=sample_kwargs,
+            parallel=parallel,
+            **kwargs
         )
 
 
@@ -20,7 +62,7 @@ class AccessorMixin:
 class DataFrameBootstrapAccessor(AccessorMixin):
     """Bootstrap accessor for pandas DataFrames.
 
-    Example:
+    Examples:
         Bootstrap the mean of each column in a DataFrame.
 
         ```python
@@ -45,7 +87,7 @@ class DataFrameBootstrapAccessor(AccessorMixin):
 class SeriesBootstrapAccessor(AccessorMixin):
     """Bootstrap accessor for pandas Series.
 
-    Example:
+    Examples:
         Bootstrap the mean of a Series.
 
         ```python

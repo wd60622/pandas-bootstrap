@@ -1,5 +1,7 @@
 from typing import Dict
 
+from joblib import Parallel
+
 import pytest
 
 import pandas as pd
@@ -8,6 +10,7 @@ from bootstrap.bootstrap import (
     bootstrap,
     UnsupportedReturnType,
 )
+
 
 # DataFrame functions
 def dataframe_to_dataframe_with_index(df: pd.DataFrame) -> pd.DataFrame:
@@ -43,6 +46,7 @@ def dataframe_to_float_inferred(df):
 
 
 dataframe_lambda_func = lambda df: df.mean(numeric_only=True)
+
 
 # Series functions
 def series_to_float(series: pd.Series) -> float:
@@ -81,6 +85,7 @@ def series_to_series_inferred(series):
 series_lambda_func = lambda ser: ser.mean()
 
 
+@pytest.mark.parametrize("parallel", [None, Parallel(n_jobs=2)])
 @pytest.mark.parametrize(
     "bfunc, n_rows_multiplier, index_type, return_type",
     [
@@ -95,16 +100,17 @@ series_lambda_func = lambda ser: ser.mean()
     ],
 )
 def test_bootstrap_dataframe(
-    df, bfunc, n_rows_multiplier, index_type, return_type
+    df, parallel, bfunc, n_rows_multiplier, index_type, return_type
 ) -> None:
     B = 50
-    df_boot = df.pipe(bootstrap, bfunc, B=B)
+    df_boot = df.pipe(bootstrap, bfunc, B=B, parallel=parallel)
 
     assert isinstance(df_boot, return_type)
     assert df_boot.shape[0] == (B * n_rows_multiplier)
     assert isinstance(df_boot.index, index_type)
 
 
+@pytest.mark.parametrize("parallel", [None, Parallel(n_jobs=2)])
 @pytest.mark.parametrize(
     "bfunc, return_type",
     [
@@ -114,13 +120,14 @@ def test_bootstrap_dataframe(
         (series_to_int_inferred, pd.Series),
         # series_to_dict,
         (series_to_series, pd.DataFrame),
+        # (series_to_dict, pd.DataFrame),
         (series_to_series_inferred, pd.DataFrame),
         (series_lambda_func, pd.Series),
     ],
 )
-def test_bootstrap_series(series, bfunc, return_type) -> None:
+def test_bootstrap_series(series, parallel, bfunc, return_type) -> None:
     B = 50
-    series_boot = series.pipe(bootstrap, bfunc, B=B)
+    series_boot = series.pipe(bootstrap, bfunc, B=B, parallel=parallel)
 
     assert isinstance(series_boot, return_type)
     assert series_boot.shape[0] == B
@@ -135,6 +142,7 @@ def function_with_kwargs_to_float_inferred(df, col: str):
     return function_with_kwargs_to_float(df, col)
 
 
+@pytest.mark.parametrize("parallel", [None, Parallel(n_jobs=2)])
 @pytest.mark.parametrize(
     "bfunc, kwargs",
     [
@@ -142,9 +150,9 @@ def function_with_kwargs_to_float_inferred(df, col: str):
         (function_with_kwargs_to_float_inferred, {"col": "x"}),
     ],
 )
-def test_support_for_kwargs(df, bfunc, kwargs) -> None:
+def test_support_for_kwargs(df, parallel, bfunc, kwargs) -> None:
     B = 50
-    series_boot = df.pipe(bootstrap, bfunc=bfunc, B=B, **kwargs)
+    series_boot = df.pipe(bootstrap, bfunc=bfunc, B=B, parallel=parallel, **kwargs)
 
     assert isinstance(series_boot, pd.Series)
     assert series_boot.shape[0] == B
@@ -172,6 +180,9 @@ def unsupported_return_type_set(df) -> set:
 
 
 @pytest.mark.parametrize(
+    "parallel", [None, Parallel(n_jobs=2), Parallel(n_jobs=2, prefer="threads")]
+)
+@pytest.mark.parametrize(
     "data_input", [pd.Series(dtype=float), pd.DataFrame(dtype=float)]
 )
 @pytest.mark.parametrize(
@@ -184,6 +195,6 @@ def unsupported_return_type_set(df) -> set:
         unsupported_return_type_set,
     ],
 )
-def test_no_signature(data_input, bfunc) -> None:
+def test_no_signature(parallel, data_input, bfunc) -> None:
     with pytest.raises(UnsupportedReturnType):
-        bootstrap(data_input, bfunc)
+        bootstrap(data_input, bfunc, parellel=parallel)
