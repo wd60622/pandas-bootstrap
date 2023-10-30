@@ -4,8 +4,8 @@ import numpy as np
 import pandas as pd
 
 
-@pytest.fixture 
-def rng(): 
+@pytest.fixture
+def rng():
     return np.random.default_rng(42)
 
 

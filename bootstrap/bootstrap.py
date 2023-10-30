@@ -1,5 +1,11 @@
+"""Core bootstrapping logic which powers the `boot` extension including parallelization and return type inference.
+
+"""
+from copy import copy
 from inspect import signature, Signature
-from typing import Any, Callable, Dict, Union, Optional, Tuple
+from typing import Any, Callable, List, Dict, Union, Optional, Tuple
+
+from joblib import Parallel, delayed
 
 import numpy as np
 import pandas as pd
@@ -112,11 +118,50 @@ def get_bfunc_processor(return_type: type) -> Union[DataFrameFunction, SeriesFun
         )
 
 
+def create_inner_loop_func(
+    bfunc, bfunc_input, bfunc_processor, sample_kwargs, **kwargs
+):
+    def inner_loop(i):
+        boot_sample = bfunc(bfunc_input.sample(**sample_kwargs), **kwargs)
+        boot_sample = bfunc_processor.name(boot_sample, i)
+
+        return boot_sample
+
+    return inner_loop
+
+
+def inner_loop(bfunc, bfunc_input, bfunc_processor, i, sample_kwargs, **kwargs):
+    boot_sample = bfunc(bfunc_input.sample(**sample_kwargs), **kwargs)
+    boot_sample = bfunc_processor.name(boot_sample, i)
+
+    return boot_sample
+
+
+LOOP_FUNC = Callable[[Callable[[int], BFUNC_OUTPUT], int], List[BFUNC_OUTPUT]]
+
+
+def loop(inner_loop_func, B):
+    samples = []
+    for i in range(B):
+        boot_sample = inner_loop_func(i)
+        samples.append(boot_sample)
+
+    return samples
+
+
+def create_parallel_loop(parallel):
+    def parallelized_loop(inner_loop_func, B):
+        return parallel(delayed(inner_loop_func)(i) for i in range(B))
+
+    return parallelized_loop
+
+
 def bootstrap(
     bfunc_input: BFUNC_INPUT,
     bfunc: BFUNC,
     B: int = 100,
     sample_kwargs: Optional[Dict[str, Any]] = None,
+    parallel: Optional[Parallel] = None,
     **kwargs,
 ) -> Union[pd.DataFrame, pd.Series]:
     """Core bootstrap function.
@@ -126,6 +171,7 @@ def bootstrap(
         bfunc: Bootstrap function.
         B: Number of bootstrap samples.
         sample_kwargs: Keyword arguments to pass to the sampling function.
+        parallel: Parallelization object.
         **kwargs: Keyword arguments to pass to the bootstrap function.
 
     Returns:
@@ -136,8 +182,7 @@ def bootstrap(
         UnsupportedReturnType: If the bootstrap function returns an unsupported type.
 
     """
-    if sample_kwargs is None:
-        sample_kwargs = {}
+    sample_kwargs = {} if sample_kwargs is None else copy(sample_kwargs)
 
     if "replace" in sample_kwargs or "frac" in sample_kwargs:
         raise ValueError("sample_kwargs cannot contain 'replace' or 'frac' keys.")
@@ -158,11 +203,11 @@ def bootstrap(
 
     bfunc_processor = get_bfunc_processor(return_type)
 
-    samples = []
-    for i in range(B):
-        boot_sample = bfunc(bfunc_input.sample(**sample_kwargs), **kwargs)
-        boot_sample = bfunc_processor.name(boot_sample, i)
-        samples.append(boot_sample)
+    loop_func = loop if parallel is None else create_parallel_loop(parallel)
+    inner_loop_func = create_inner_loop_func(
+        bfunc, bfunc_input, bfunc_processor, sample_kwargs, **kwargs
+    )
+    samples = loop_func(inner_loop_func=inner_loop_func, B=B)
 
     return (
         pd.concat(samples, axis=bfunc_processor.append_axis)

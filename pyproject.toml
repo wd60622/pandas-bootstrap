@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "pandas-bootstrap"
-version = "0.1.1"
+version = "0.2.0"
 description = "Bootstrapping with Pandas made easy"
 authors = ["Will Dean <wd60622@gmail.com>"]
 readme = "README.md"
@@ -12,6 +12,7 @@ packages = [
 [tool.poetry.dependencies]
 python = ">=3.8,<4.0"
 pandas = ">=1.0.0"
+joblib = "^1.1.1"
 
 
 [tool.poetry.group.dev.dependencies]
