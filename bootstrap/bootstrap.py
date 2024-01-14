@@ -16,14 +16,6 @@ BFUNC_OUTPUT = Union[pd.DataFrame, pd.Series]
 BFUNC = Callable[[BFUNC_INPUT], BFUNC_INPUT]
 
 
-def get_return_type(bfunc: BFUNC) -> type:
-    """Get the return type of a bootstrap function."""
-    sig = signature(bfunc)
-    return_type = sig.return_annotation
-
-    return return_type
-
-
 class UnsupportedReturnType(Exception):
     """Raised when a bootstrap function returns an unsupported type."""
 

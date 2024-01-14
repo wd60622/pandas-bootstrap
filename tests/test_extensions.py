@@ -1,6 +1,6 @@
 import pandas as pd
 
-import bootstrap  # type: ignore
+import bootstrap  # noqa
 
 
 def dataframe_to_float(df, group: str) -> float:

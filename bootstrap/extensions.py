@@ -24,6 +24,7 @@ from bootstrap.bootstrap import bootstrap, BFUNC
 
 class AccessorMixin:
     """Common functionality for DataFrame and Series accessors."""
+
     def __init__(self, obj):
         self._obj = obj
 
@@ -33,7 +34,7 @@ class AccessorMixin:
         B: int = 100,
         sample_kwargs: Dict[str, Any] = None,
         parallel: Optional[Parallel] = None,
-        **kwargs
+        **kwargs,
     ) -> Union[pd.Series, pd.DataFrame]:
         """Get bootstrap samples of the object.
 
@@ -54,7 +55,7 @@ class AccessorMixin:
             B=B,
             sample_kwargs=sample_kwargs,
             parallel=parallel,
-            **kwargs
+            **kwargs,
         )
 
 

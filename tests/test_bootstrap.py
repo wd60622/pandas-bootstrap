@@ -45,7 +45,7 @@ def dataframe_to_float_inferred(df):
     return dataframe_to_float(df)
 
 
-dataframe_lambda_func = lambda df: df.mean(numeric_only=True)
+dataframe_lambda_func = lambda df: df.mean(numeric_only=True)  # noqa
 
 
 # Series functions
@@ -82,7 +82,7 @@ def series_to_series_inferred(series):
     return series_to_series(series)
 
 
-series_lambda_func = lambda ser: ser.mean()
+series_lambda_func = lambda ser: ser.mean()  # noqa
 
 
 @pytest.mark.parametrize("parallel", [None, Parallel(n_jobs=2)])
