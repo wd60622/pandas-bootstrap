@@ -8,6 +8,19 @@ packages = [
     {include = "bootstrap"}, 
     {include = "bootstrap/py.typed"}
 ]
+classifiers = [
+    'Intended Audience :: Science/Research',
+    'Operating System :: OS Independent',
+    'Programming Language :: Cython',
+    'Programming Language :: Python',
+    'Programming Language :: Python :: 3',
+    'Programming Language :: Python :: 3 :: Only',
+    'Programming Language :: Python :: 3.9',
+    'Programming Language :: Python :: 3.10',
+    'Programming Language :: Python :: 3.11',
+    'Programming Language :: Python :: 3.12',
+    'Topic :: Scientific/Engineering'
+]
 
 [tool.poetry.dependencies]
 python = ">=3.8,<4.0"
