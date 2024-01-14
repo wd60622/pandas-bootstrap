@@ -5,7 +5,6 @@ description = "Bootstrapping with Pandas made easy"
 authors = ["Will Dean <wd60622@gmail.com>"]
 readme = "README.md"
 license = "MIT"
-readme = "README.md"
 homepage = "https://wd60622.github.io/pandas-bootstrap/"
 documentation = "https://wd60622.github.io/pandas-bootstrap/"
 repository = "https://github.com/wd60622/pandas-bootstrap"
