@@ -4,9 +4,27 @@ version = "0.2.0"
 description = "Bootstrapping with Pandas made easy"
 authors = ["Will Dean <wd60622@gmail.com>"]
 readme = "README.md"
+license = "MIT"
+readme = "README.md"
+homepage = "https://wd60622.github.io/pandas-bootstrap/"
+documentation = "https://wd60622.github.io/pandas-bootstrap/"
+repository = "https://github.com/wd60622/pandas-bootstrap"
 packages = [
     {include = "bootstrap"}, 
     {include = "bootstrap/py.typed"}
+]
+classifiers = [
+    'Intended Audience :: Science/Research',
+    'Operating System :: OS Independent',
+    'Programming Language :: Cython',
+    'Programming Language :: Python',
+    'Programming Language :: Python :: 3',
+    'Programming Language :: Python :: 3 :: Only',
+    'Programming Language :: Python :: 3.9',
+    'Programming Language :: Python :: 3.10',
+    'Programming Language :: Python :: 3.11',
+    'Programming Language :: Python :: 3.12',
+    'Topic :: Scientific/Engineering'
 ]
 
 [tool.poetry.dependencies]
@@ -21,7 +39,26 @@ pytest-cov = "^4.1.0"
 matplotlib = "^3.7.2"
 scikit-learn = "^1.3.0"
 ipython = "8.8.0"
+tox = "^4.12.0"
 
+
+[tool.tox]
+legacy_tox_ini = """
+    [tox]
+    min_version = 4.0
+    isolated_build = true
+    env_list =
+        py312
+        py311
+        py310
+        py39
+        py38
+
+    [testenv]
+    deps = 
+        pytest 
+    commands = pytest tests
+"""
 
 [tool.poetry.group.docs.dependencies]
 mkdocs = "^1.4.3"
