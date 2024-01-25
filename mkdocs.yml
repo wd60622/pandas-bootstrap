@@ -35,7 +35,7 @@ extra:
   homepage: https://wd60622.github.io/
   social:
     - icon: fontawesome/brands/github
-      link: https://github.com/wd60622/conjugate
+      link: https://github.com/wd60622/pandas-bootstrap
 
 nav:
   - Overview: index.md
