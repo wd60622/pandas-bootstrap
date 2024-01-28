@@ -42,6 +42,7 @@ nav:
   - Modules: 
     - extensions.md
     - bootstrap.md
+    - datasets.md
   - Examples: 
     - Linear Regression: examples/linear-regression.md
     - examples/correlation.md
