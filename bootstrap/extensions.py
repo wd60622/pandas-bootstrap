@@ -16,7 +16,7 @@ ser.boot.get_samples(...)
 import sys
 from typing import Any, Dict, Optional, Union
 
-if sys.version_info <= (3, 9):
+if sys.version_info < (3, 10):
     from typing_extensions import ParamSpec
 else:
     from typing import ParamSpec
