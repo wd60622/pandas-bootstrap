@@ -42,11 +42,13 @@ nav:
   - Modules: 
     - extensions.md
     - bootstrap.md
+    - datasets.md
   - Examples: 
     - Linear Regression: examples/linear-regression.md
     - examples/correlation.md
     - examples/return-type.md
     - examples/parallelization.md
+    - examples/groupby-input.md
 
 plugins:
 - search
@@ -62,6 +64,8 @@ markdown_extensions:
       anchor_linenums: true
       line_spans: __span
       pygments_lang_class: true
+  - admonition
   - pymdownx.inlinehilite
+  - pymdownx.details
   - pymdownx.snippets
   - pymdownx.superfences
