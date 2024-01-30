@@ -13,7 +13,13 @@ ser.boot.get_samples(...)
 ```
 
 """
-from typing import Any, Dict, Optional, Union, ParamSpec
+import sys
+from typing import Any, Dict, Optional, Union
+
+if sys.version_info <= (3, 9):
+    from typing_extensions import ParamSpec
+else:
+    from typing import ParamSpec
 
 from joblib import Parallel
 

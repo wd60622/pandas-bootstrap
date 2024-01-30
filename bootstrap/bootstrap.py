@@ -3,7 +3,14 @@
 """
 from copy import copy
 from inspect import signature, Signature
-from typing import Any, Callable, List, Dict, Union, Optional, Tuple, ParamSpec
+from typing import Any, Callable, List, Dict, Union, Optional, Tuple
+
+import sys
+
+if sys.version_info <= (3, 9):
+    from typing_extensions import ParamSpec
+else:
+    from typing import ParamSpec
 
 from joblib import Parallel, delayed
 
@@ -28,7 +35,9 @@ def get_return_type(bfunc: BFUNC) -> type:
     return sig.return_annotation
 
 
-def infer_return_type(df: BFUNC_INPUT, bfunc: BFUNC, **kwargs: P.kwargs) -> Tuple[BFUNC, type]:
+def infer_return_type(
+    df: BFUNC_INPUT, bfunc: BFUNC, **kwargs: P.kwargs
+) -> Tuple[BFUNC, type]:
     """Infer the return type of a bootstrap function.
 
     Args:
@@ -113,7 +122,7 @@ def get_bfunc_processor(return_type: type) -> Union[DataFrameFunction, SeriesFun
 
 
 def create_inner_loop_func(
-        bfunc, bfunc_input, bfunc_processor, sample_kwargs, **kwargs: P.kwargs
+    bfunc, bfunc_input, bfunc_processor, sample_kwargs, **kwargs: P.kwargs
 ):
     def inner_loop(i):
         boot_sample = bfunc(bfunc_input.sample(**sample_kwargs), **kwargs)
@@ -124,7 +133,9 @@ def create_inner_loop_func(
     return inner_loop
 
 
-def inner_loop(bfunc, bfunc_input, bfunc_processor, i, sample_kwargs, **kwargs: P.kwargs):
+def inner_loop(
+    bfunc, bfunc_input, bfunc_processor, i, sample_kwargs, **kwargs: P.kwargs
+):
     boot_sample = bfunc(bfunc_input.sample(**sample_kwargs), **kwargs)
     boot_sample = bfunc_processor.name(boot_sample, i)
 
