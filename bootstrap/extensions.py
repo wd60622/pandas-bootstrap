@@ -13,13 +13,16 @@ ser.boot.get_samples(...)
 ```
 
 """
-from typing import Any, Dict, Optional, Union
+from typing import Any, Dict, Optional, Union, ParamSpec
 
 from joblib import Parallel
 
 import pandas as pd
 
 from bootstrap.bootstrap import bootstrap, BFUNC
+
+
+P = ParamSpec("P")
 
 
 class AccessorMixin:
@@ -34,7 +37,7 @@ class AccessorMixin:
         B: int = 100,
         sample_kwargs: Dict[str, Any] = None,
         parallel: Optional[Parallel] = None,
-        **kwargs,
+        **kwargs: P.kwargs,
     ) -> Union[pd.Series, pd.DataFrame]:
         """Get bootstrap samples of the object.
 

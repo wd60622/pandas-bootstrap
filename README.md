@@ -5,7 +5,7 @@
 [![PyPI version](https://badge.fury.io/py/pandas-bootstrap.svg)](https://badge.fury.io/py/pandas-bootstrap) 
 [![docs](https://github.com/wd60622/pandas-bootstrap/actions/workflows/docs.yml/badge.svg)](https://wd60622.github.io/pandas-bootstrap/)
 
-Bootrapping with Pandas made easy.
+Statistical Bootstrap with Pandas made easy.
 
 ## Installation
 

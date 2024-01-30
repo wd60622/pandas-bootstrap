@@ -1,9 +1,16 @@
 """Example datasets to test out the boot attribute."""
+from __future__ import annotations
+
+from typing import List, Union
+
 import pandas as pd
 import numpy as np
 
 
-def different_mean_and_sigma(n: int, groups: int = 2, random_state=None, mu=None, sigma=None) -> pd.DataFrame:
+ArrayLike = Union[List, np.ndarray, pd.Series]
+
+
+def different_mean_and_sigma(n: int, groups: int = 2, random_state: int | None = None, mu: ArrayLike | None = None, sigma: ArrayLike | None =None) -> pd.DataFrame:
     """Generate a dataset with different mean and sigma for each group.
 
     Args: 
@@ -21,6 +28,7 @@ def different_mean_and_sigma(n: int, groups: int = 2, random_state=None, mu=None
 
         ```python
         import pandas as pd
+
         from bootstrap.datasets import different_mean_and_sigma
 
         n = 100

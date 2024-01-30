@@ -4,7 +4,7 @@ hide:
 ---
 # Pandas Bootstrap
 
-Bootrapping with Pandas made easy.
+Statistical Bootstrap with Pandas made easy.
 
 ## Installation
 
