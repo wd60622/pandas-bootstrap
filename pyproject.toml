@@ -43,7 +43,9 @@ tox = "^4.12.0"
 [tool.pytest.ini_options]
 minversion = "6.0.0"
 addopts = "-v --cov=bootstrap --cov-report=xml --cov-report=term-missing"
-testpaths = "tests"
+testpaths = [
+    "tests",
+]
 
 [tool.tox]
 legacy_tox_ini = """
@@ -59,7 +61,8 @@ legacy_tox_ini = """
 
     [testenv]
     deps = 
-        pytest pytest-cov
+        pytest 
+        pytest-cov
     commands = pytest
 """
 
