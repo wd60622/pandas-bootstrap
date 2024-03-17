@@ -60,7 +60,7 @@ legacy_tox_ini = """
         py38
 
     [testenv]
-    deps = 
+    deps =
         pytest 
         pytest-cov
     commands = pytest
