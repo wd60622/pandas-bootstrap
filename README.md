@@ -4,6 +4,7 @@
 [![Tests](https://github.com/wd60622/pandas-bootstrap/actions/workflows/tests.yml/badge.svg)](https://github.com/wd60622/pandas-bootstrap/actions/workflows/tests.yml) 
 [![PyPI version](https://badge.fury.io/py/pandas-bootstrap.svg)](https://badge.fury.io/py/pandas-bootstrap) 
 [![docs](https://github.com/wd60622/pandas-bootstrap/actions/workflows/docs.yml/badge.svg)](https://wd60622.github.io/pandas-bootstrap/)
+[![codecov](https://codecov.io/gh/wd60622/pandas-bootstrap/graph/badge.svg?token=WEJBSBMTYN)](https://codecov.io/gh/wd60622/pandas-bootstrap)
 
 Statistical Bootstrap with Pandas made easy.
 

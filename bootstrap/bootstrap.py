@@ -133,15 +133,6 @@ def create_inner_loop_func(
     return inner_loop
 
 
-def inner_loop(
-    bfunc, bfunc_input, bfunc_processor, i, sample_kwargs, **kwargs: P.kwargs
-):
-    boot_sample = bfunc(bfunc_input.sample(**sample_kwargs), **kwargs)
-    boot_sample = bfunc_processor.name(boot_sample, i)
-
-    return boot_sample
-
-
 LOOP_FUNC = Callable[[Callable[[int], BFUNC_OUTPUT], int], List[BFUNC_OUTPUT]]
 
 
