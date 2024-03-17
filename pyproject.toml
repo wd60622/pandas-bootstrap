@@ -40,6 +40,10 @@ scikit-learn = "^1.3.0"
 ipython = "8.8.0"
 tox = "^4.12.0"
 
+[tool.pytest.ini_options]
+minversion = "6.0.0"
+addopts = "-v --cov=bootstrap --cov-report=xml --cov-report=term-missing"
+testpaths = "tests"
 
 [tool.tox]
 legacy_tox_ini = """
@@ -55,8 +59,8 @@ legacy_tox_ini = """
 
     [testenv]
     deps = 
-        pytest 
-    commands = pytest tests
+        pytest pytest-cov
+    commands = pytest
 """
 
 [tool.poetry.group.docs.dependencies]
