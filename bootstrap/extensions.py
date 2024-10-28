@@ -13,6 +13,7 @@ ser.boot.get_samples(...)
 ```
 
 """
+
 import sys
 from typing import Any, Dict, Optional, Union
 

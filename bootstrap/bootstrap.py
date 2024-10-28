@@ -1,6 +1,5 @@
-"""Core bootstrapping logic which powers the `boot` extension including parallelization and return type inference.
+"""Core bootstrapping logic which powers the `boot` extension including parallelization and return type inference."""
 
-"""
 from copy import copy
 from inspect import signature, Signature
 from typing import Any, Callable, List, Dict, Union, Optional, Tuple
