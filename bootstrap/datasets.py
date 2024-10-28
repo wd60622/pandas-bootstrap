@@ -1,4 +1,5 @@
 """Example datasets to test out the boot attribute."""
+
 from __future__ import annotations
 
 from typing import List, Union
@@ -10,10 +11,16 @@ import numpy as np
 ArrayLike = Union[List, np.ndarray, pd.Series]
 
 
-def different_mean_and_sigma(n: int, groups: int = 2, random_state: int | None = None, mu: ArrayLike | None = None, sigma: ArrayLike | None =None) -> pd.DataFrame:
+def different_mean_and_sigma(
+    n: int,
+    groups: int = 2,
+    random_state: int | None = None,
+    mu: ArrayLike | None = None,
+    sigma: ArrayLike | None = None,
+) -> pd.DataFrame:
     """Generate a dataset with different mean and sigma for each group.
 
-    Args: 
+    Args:
         n: Number of samples
         groups: Number of groups
         random_state: Random state
@@ -23,7 +30,7 @@ def different_mean_and_sigma(n: int, groups: int = 2, random_state: int | None =
     Returns:
         A DataFrame with two columns: group and x
 
-    Examples: 
+    Examples:
         Get the confidence intervals for the mean and sigma
 
         ```python
@@ -36,7 +43,7 @@ def different_mean_and_sigma(n: int, groups: int = 2, random_state: int | None =
         sigma = [1, 4]
         df = different_mean_and_sigma(n=n, random_state=0, mu=mu, sigma=sigma)
         ```
-        Which looks like this: 
+        Which looks like this:
         ```text
             group         x
         0       1  3.429522
@@ -51,16 +58,16 @@ def different_mean_and_sigma(n: int, groups: int = 2, random_state: int | None =
         98      0  0.196268
         99      1  6.320654
 
-        [100 rows x 2 columns] 
+        [100 rows x 2 columns]
         ```
 
         By define our statistic function and pass to `get_samples` method.
 
         ```python
-        def mean_and_sigma_by_group(df: pd.DataFrame) -> pd.DataFrame: 
+        def mean_and_sigma_by_group(df: pd.DataFrame) -> pd.DataFrame:
             return df.groupby("group")["x"].agg(['mean', 'std'])
-            
-        B = 1_000 
+
+        B = 1_000
         sample_kwargs = {"random_state": 0}
         df_boot = df.boot.get_samples(
             mean_and_sigma_by_group,
@@ -71,7 +78,7 @@ def different_mean_and_sigma(n: int, groups: int = 2, random_state: int | None =
         Which looks like this:
 
         ```text
-                          mean       std 
+                          mean       std
         group sample
         0     0       1.011128  0.960958
               1       0.995973  0.874010
@@ -99,14 +106,15 @@ def different_mean_and_sigma(n: int, groups: int = 2, random_state: int | None =
     sigma = np.array(sigma)
 
     if len(mu) != groups or len(sigma) != groups:
-        raise ValueError(f"mu and sigma must have the same length as groups. {groups = }")
+        raise ValueError(
+            f"mu and sigma must have the same length as groups. {groups = }"
+        )
 
     group = rng.choice(np.arange(groups), size=n)
 
-    return pd.DataFrame({
-        'group': group, 
-        'x': rng.normal(mu[group], sigma[group], size=n),
-    })
-
-    
-
+    return pd.DataFrame(
+        {
+            "group": group,
+            "x": rng.normal(mu[group], sigma[group], size=n),
+        }
+    )
