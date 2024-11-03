@@ -9,7 +9,7 @@ homepage = "https://wd60622.github.io/pandas-bootstrap/"
 documentation = "https://wd60622.github.io/pandas-bootstrap/"
 repository = "https://github.com/wd60622/pandas-bootstrap"
 packages = [
-    {include = "bootstrap"}, 
+    {include = "bootstrap"},
     {include = "bootstrap/py.typed"}
 ]
 classifiers = [
@@ -61,7 +61,7 @@ legacy_tox_ini = """
 
     [testenv]
     deps =
-        pytest 
+        pytest
         pytest-cov
     commands = pytest
 """
