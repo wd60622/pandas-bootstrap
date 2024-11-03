@@ -1,12 +1,12 @@
 ---
-hide: 
+hide:
     - navigation
 ---
 # Pandas Bootstrap
 
 [![Ruff](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/astral-sh/ruff/main/assets/badge/v2.json)](https://github.com/astral-sh/ruff)
-[![Tests](https://github.com/wd60622/pandas-bootstrap/actions/workflows/tests.yml/badge.svg)](https://github.com/wd60622/pandas-bootstrap/actions/workflows/tests.yml) 
-[![PyPI version](https://badge.fury.io/py/pandas-bootstrap.svg)](https://badge.fury.io/py/pandas-bootstrap) 
+[![Tests](https://github.com/wd60622/pandas-bootstrap/actions/workflows/tests.yml/badge.svg)](https://github.com/wd60622/pandas-bootstrap/actions/workflows/tests.yml)
+[![PyPI version](https://badge.fury.io/py/pandas-bootstrap.svg)](https://badge.fury.io/py/pandas-bootstrap)
 [![docs](https://github.com/wd60622/pandas-bootstrap/actions/workflows/docs.yml/badge.svg)](https://wd60622.github.io/pandas-bootstrap/)
 [![codecov](https://codecov.io/gh/wd60622/pandas-bootstrap/graph/badge.svg?token=WEJBSBMTYN)](https://codecov.io/gh/wd60622/pandas-bootstrap)
 
@@ -20,7 +20,7 @@ pip install pandas-bootstrap
 
 ## Usage
 
-The module is very easy to use. 
+The module is very easy to use.
 
 1. `import bootstrap`
 2. define statistic function: `def some_func(df: pd.DataFrame | pd.Series):`
@@ -51,9 +51,9 @@ df_bootstrap = df.boot.get_samples(bfunc=mean_of_columns, B=5, sample_kwargs=sam
 
 which results in:
 
-```text 
+```text
           a    b
-sample          
+sample
 0       3.0  8.0
 1       2.6  7.6
 2       4.0  9.0

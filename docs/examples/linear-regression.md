@@ -3,11 +3,11 @@ comments: true
 ---
 # Linear Regression Confidence Intervals
 
-```python 
+```python
 import pandas as pd
 import numpy as np
 
-from sklearn.linear_model import LinearRegression 
+from sklearn.linear_model import LinearRegression
 
 import bootstrap
 
@@ -21,17 +21,17 @@ df = pd.DataFrame({
     "x": np.random.uniform(0, 3, size=N_POINTS)
 })
 df["y"] = (
-    INTERCEPT 
-    + SLOPE * df["x"] 
+    INTERCEPT
+    + SLOPE * df["x"]
     # Noise
     + np.random.normal(loc=0, scale=SIGMA, size=N_POINTS)
 )
 
-def bfunc(df: pd.DataFrame, model: LinearRegression) -> pd.Series: 
+def bfunc(df: pd.DataFrame, model: LinearRegression) -> pd.Series:
     model.fit(df[["x"]], df["y"])
 
     return pd.Series({
-        "intercept": model.intercept_, 
+        "intercept": model.intercept_,
         "slope": model.coef_[0]
     })
 
@@ -44,7 +44,7 @@ which results in:
 
 ```text
         intercept     slope
-sample                     
+sample
 0       -0.369922  2.985659
 1       -0.139439  3.312337
 2       -1.878551  3.981249
