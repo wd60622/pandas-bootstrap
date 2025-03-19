@@ -27,15 +27,15 @@ theme:
         name: Switch to light mode
 
 repo_name: pandas-bootstrap
-repo_url: https://github.com/wd60622/pandas-bootstrap
+repo_url: https://github.com/williambdean/pandas-bootstrap
 edit_uri: blob/main/docs/
-site_url: https://wd60622.github.io/pandas-bootstrap
+site_url: https://williambdean.github.io/pandas-bootstrap
 
 extra:
-  homepage: https://wd60622.github.io/
+  homepage: https://williambdean.github.io/
   social:
     - icon: fontawesome/brands/github
-      link: https://github.com/wd60622/pandas-bootstrap
+      link: https://github.com/williambdean/pandas-bootstrap
 
 nav:
   - Overview: index.md
