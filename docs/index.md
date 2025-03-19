@@ -5,10 +5,10 @@ hide:
 # Pandas Bootstrap
 
 [![Ruff](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/astral-sh/ruff/main/assets/badge/v2.json)](https://github.com/astral-sh/ruff)
-[![Tests](https://github.com/wd60622/pandas-bootstrap/actions/workflows/tests.yml/badge.svg)](https://github.com/wd60622/pandas-bootstrap/actions/workflows/tests.yml)
+[![Tests](https://github.com/williambdean/pandas-bootstrap/actions/workflows/tests.yml/badge.svg)](https://github.com/williambdean/pandas-bootstrap/actions/workflows/tests.yml)
 [![PyPI version](https://badge.fury.io/py/pandas-bootstrap.svg)](https://badge.fury.io/py/pandas-bootstrap)
-[![docs](https://github.com/wd60622/pandas-bootstrap/actions/workflows/docs.yml/badge.svg)](https://wd60622.github.io/pandas-bootstrap/)
-[![codecov](https://codecov.io/gh/wd60622/pandas-bootstrap/graph/badge.svg?token=WEJBSBMTYN)](https://codecov.io/gh/wd60622/pandas-bootstrap)
+[![docs](https://github.com/williambdean/pandas-bootstrap/actions/workflows/docs.yml/badge.svg)](https://williambdean.github.io/pandas-bootstrap/)
+[![codecov](https://codecov.io/gh/williambdean/pandas-bootstrap/graph/badge.svg?token=WEJBSBMTYN)](https://codecov.io/gh/williambdean/pandas-bootstrap)
 
 Statistical Bootstrap with Pandas made easy.
 
